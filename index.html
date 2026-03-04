@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InvestPy — Copilot de Inversiones para LATAM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg2: #f7f7f7;
+    --bg3: #f0f0f0;
+    --border: #e4e4e4;
+    --border-dark: #d0d0d0;
+    --text: #111111;
+    --text-muted: #6b6b6b;
+    --text-light: #999999;
+    --accent: #111111;
+    --accent-hover: #333333;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.92);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 5rem;
+    position: relative;
+    background: var(--bg);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    max-width: 750px;
+    animation: fadeUp 0.6s 0.1s ease both;
+    color: var(--text);
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero h1 em::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--text);
+    border-radius: 2px;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 1.5rem auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 400;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    letter-spacing: -0.01em;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-muted);
+    padding: 0.8rem 1.8rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    border: 1px solid var(--border-dark);
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    justify-content: center;
+    gap: 3.5rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.2rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .container-sm {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* VIDEO */
+  .video-wrap {
+    margin-top: 2.5rem;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    aspect-ratio: 16/9;
+    box-shadow: 0 2px 40px rgba(0,0,0,0.08);
+  }
+
+  .video-wrap iframe,
+  .video-wrap video {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    cursor: pointer;
+    background: var(--bg2);
+  }
+
+  .play-btn {
+    width: 60px;
+    height: 60px;
+    background: var(--text);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .video-placeholder:hover .play-btn {
+    background: #333;
+    transform: scale(1.05);
+  }
+
+  .play-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: white;
+    margin-left: 3px;
+  }
+
+  .video-placeholder p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+  }
+
+  /* HOW */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    margin-top: 3rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--border);
+  }
+
+  .step {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.2s ease;
+  }
+
+  .step:hover { background: var(--bg2); }
+
+  .step-num {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+
+  .step h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .step p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    margin-top: 3rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--border);
+  }
+
+  .feature {
+    background: var(--bg);
+    padding: 1.8rem;
+    transition: background 0.2s ease;
+  }
+
+  .feature:hover { background: var(--bg2); }
+
+  .feature-icon {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .feature h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+
+  .feature p {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* CHAT DEMO */
+  .chat-demo {
+    margin-top: 3rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.06);
+  }
+
+  .chat-bar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .chat-body {
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--bg);
+  }
+
+  .msg {
+    max-width: 78%;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .msg-user {
+    background: var(--text);
+    color: white;
+    align-self: flex-end;
+    border-radius: 8px 8px 2px 8px;
+  }
+
+  .msg-ai {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    align-self: flex-start;
+    border-radius: 8px 8px 8px 2px;
+  }
+
+  .source-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: white;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.73rem;
+    margin-top: 0.7rem;
+    font-weight: 500;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--text);
+    color: white;
+    text-align: center;
+    padding: 6rem 2rem;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    max-width: 560px;
+    margin: 0 auto 1rem;
+    line-height: 1.15;
+  }
+
+  .cta-section p {
+    color: rgba(255,255,255,0.6);
+    max-width: 380px;
+    margin: 0 auto 2rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-white {
+    background: white;
+    color: var(--text);
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+
+  .btn-white:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--text); }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.2rem; }
+    .stats-bar { gap: 2rem; }
+    footer { flex-direction: column; text-align: center; }
+    .nav-link { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">InvestPy</a>
+  <div class="nav-right">
+    <a href="#como-funciona" class="nav-link">Cómo funciona</a>
+    <a href="https://app.investpy.lat" class="nav-cta">Comenzar gratis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Beta · Copilot de Inversiones para LATAM
+  </div>
+
+  <h1>El <em>copilot de Inversiones</em> para LATAM</h1>
+
+  <p class="hero-sub">
+    Consultá leyes de inversión y tributación en segundos. Respuestas con fuentes reales, no respuestas genéricas de ChatGPT.
+  </p>
+
+  <div class="hero-actions">
+    <a href="https://app.investpy.lat" class="btn-primary">Empezar gratis →</a>
+    <a href="#demo-video" class="btn-secondary">Ver demo</a>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Consultas gratis</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">~30s</div>
+      <div class="stat-label">Por respuesta</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Fuentes citadas</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="demo-video" style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container reveal">
+    <p class="section-tag">Demo</p>
+    <h2 class="section-title">Mirá cómo funciona en 90 segundos</h2>
+    <p class="section-sub">Una pregunta real, una respuesta real citando la ley exacta.</p>
+
+    <div class="video-wrap">
+      <!-- REEMPLAZÁ CON TU URL DE VEED: -->
+      <!-- <iframe src="https://www.veed.io/embed/TU-VIDEO-ID" allowfullscreen></iframe> -->
+
+      <div class="video-placeholder">
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <p>Demo de InvestPy — pegá tu URL de Veed aquí</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="como-funciona">
+  <div class="container reveal">
+    <p class="section-tag">Cómo funciona</p>
+    <h2 class="section-title">Simple como hacer una pregunta</h2>
+    <p class="section-sub">Sin formularios, sin esperar días. Solo preguntá y recibís la respuesta con la ley exacta.</p>
+
+    <div class="steps">
+      <div class="step">
+        <p class="step-num">PASO 01</p>
+        <h3>Hacé tu consulta</h3>
+        <p>Preguntá lo que necesitás sobre leyes de inversión, tributación o regulaciones en Paraguay.</p>
+      </div>
+      <div class="step">
+        <p class="step-num">PASO 02</p>
+        <h3>Buscamos en leyes reales</h3>
+        <p>InvestPy busca en documentos oficiales: SET, MIC, Banco Central del Paraguay.</p>
+      </div>
+      <div class="step">
+        <p class="step-num">PASO 03</p>
+        <h3>Respuesta con fuente</h3>
+        <p>"Según la Ley 60/90, Art. 26..." — no respuestas vagas, siempre con el artículo exacto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FEATURES -->
+<section>
+  <div class="container reveal">
+    <p class="section-tag">Por qué InvestPy</p>
+    <h2 class="section-title">Lo que ningún chatbot genérico puede darte</h2>
+    <p class="section-sub">ChatGPT sabe de todo pero no sabe nada de Paraguay. InvestPy sí.</p>
+
+    <div class="features-grid">
+      <div class="feature">
+        <span class="feature-icon">⚖️</span>
+        <h3>Leyes reales de Paraguay</h3>
+        <p>Accedemos a documentos oficiales de la SET, MIC y Banco Central. No inventamos nada.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🔗</span>
+        <h3>Fuentes siempre citadas</h3>
+        <p>Cada respuesta incluye ley y artículo exacto. Podés verificarlo y mostrárselo a tu contador.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <h3>Respuesta en segundos</h3>
+        <p>Lo que antes tardaba horas de búsqueda o una consulta cara, ahora en 30 segundos.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🌎</span>
+        <h3>Contexto local LATAM</h3>
+        <p>Construido específicamente para el mercado paraguayo y en expansión a toda la región.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📋</span>
+        <h3>Historial de consultas</h3>
+        <p>Todas tus preguntas guardadas. Encontrá una consulta anterior cuando la necesites.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🔒</span>
+        <h3>Privado y seguro</h3>
+        <p>Sin publicidad, sin venta de datos. Tus consultas son completamente tuyas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CHAT DEMO -->
+<section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container-sm reveal">
+    <p class="section-tag">Ejemplo real</p>
+    <h2 class="section-title">Así se ve una consulta</h2>
+    <p class="section-sub">Una pregunta de un emprendedor paraguayo, respondida con fuente exacta.</p>
+
+    <div class="chat-demo">
+      <div class="chat-bar">
+        <div class="dot" style="background:#ff5f57"></div>
+        <div class="dot" style="background:#febc2e"></div>
+        <div class="dot" style="background:#28c840"></div>
+        <span style="margin-left:0.5rem;font-size:0.78rem;color:var(--text-light)">InvestPy · Paraguay</span>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          ¿Qué beneficios fiscales tengo si registro mi empresa bajo la Ley 60/90?
+        </div>
+        <div class="msg msg-ai">
+          <strong>Según la Ley 60/90 de Inversiones:</strong><br><br>
+          Las empresas registradas acceden a exoneración del Impuesto a la Renta (IRE) por hasta <strong>10 años</strong>, exoneración de impuestos de importación para bienes de capital, y estabilidad tributaria garantizada.<br><br>
+          Para calificar, la inversión mínima debe ser de <strong>USD 5.000.000</strong> en sectores como industria, agroindustria o turismo.<br><br>
+          <div class="source-tag">📄 Fuente: Ley 60/90, Arts. 3, 8 y 14 — MIC Paraguay</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING COMENTADO - descomentar cuando esté listo
+<section>
+  <div class="container reveal" style="text-align:center">
+    <p class="section-tag">Planes</p>
+    <h2 class="section-title">Empezá gratis, escalá cuando necesites</h2>
+    ...pricing cards...
+  </div>
+</section>
+-->
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="reveal">
+    <h2>¿Cuánto te cuesta no saber la ley?</h2>
+    <p>Una multa de la SET, un contrato mal estructurado, beneficios que te corresponden y no aprovechaste. Empezá gratis hoy.</p>
+    <a href="https://app.investpy.lat" class="btn-white">Crear cuenta gratis →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 InvestPy. Copilot de Inversiones para LATAM.</p>
+  <div class="footer-links">
+    <a href="https://app.investpy.lat">App</a>
+    <a href="mailto:hola@investpy.lat">Contacto</a>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
