@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InvestPy — Copilot de Inversiones para LATAM</title>
+<title>InvestPy — IA y Copilot para Real Estate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -136,7 +136,7 @@
     font-weight: 700;
     line-height: 1.08;
     letter-spacing: -0.03em;
-    max-width: 750px;
+    max-width: 850px;
     animation: fadeUp 0.6s 0.1s ease both;
     color: var(--text);
   }
@@ -161,7 +161,7 @@
   .hero-sub {
     font-size: 1.05rem;
     color: var(--text-muted);
-    max-width: 480px;
+    max-width: 520px;
     margin: 1.5rem auto 2.5rem;
     line-height: 1.7;
     font-weight: 400;
@@ -222,7 +222,7 @@
     padding-top: 2.5rem;
     border-top: 1px solid var(--border);
     width: 100%;
-    max-width: 640px;
+    max-width: 700px;
     display: flex;
     justify-content: center;
     gap: 3.5rem;
@@ -459,7 +459,7 @@
   }
 
   .msg {
-    max-width: 78%;
+    max-width: 85%;
     padding: 0.9rem 1.1rem;
     border-radius: 8px;
     font-size: 0.88rem;
@@ -481,6 +481,36 @@
     border-radius: 8px 8px 8px 2px;
   }
 
+  .property-demo-card {
+    display: flex;
+    gap: 1rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-top: 0.8rem;
+    align-items: center;
+  }
+
+  .property-demo-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #e0e0e0;
+  }
+
+  .property-demo-info h4 {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .property-demo-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
   .source-tag {
     display: inline-flex;
     align-items: center;
@@ -488,11 +518,12 @@
     background: white;
     border: 1px solid var(--border);
     color: var(--text-muted);
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.73rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
     margin-top: 0.7rem;
-    font-weight: 500;
+    font-weight: 600;
+    cursor: pointer;
   }
 
   /* CTA */
@@ -507,14 +538,14 @@
     font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 700;
     letter-spacing: -0.025em;
-    max-width: 560px;
+    max-width: 600px;
     margin: 0 auto 1rem;
     line-height: 1.15;
   }
 
   .cta-section p {
     color: rgba(255,255,255,0.6);
-    max-width: 380px;
+    max-width: 420px;
     margin: 0 auto 2rem;
     font-size: 0.95rem;
   }
@@ -580,31 +611,31 @@
     .stats-bar { gap: 2rem; }
     footer { flex-direction: column; text-align: center; }
     .nav-link { display: none; }
+    .property-demo-card { flex-direction: column; align-items: flex-start; }
+    .property-demo-img { width: 100%; height: 120px; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="logo">InvestPy</a>
   <div class="nav-right">
     <a href="#como-funciona" class="nav-link">Cómo funciona</a>
-    <a href="https://app.investpy.lat" class="nav-cta">Comenzar gratis</a>
+    <a href="https://app.investpy.lat" class="nav-cta">Subir Propiedades</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-badge">
     <span class="badge-dot"></span>
-    Beta · Copilot de Inversiones para LATAM
+    Beta · El primer Copilot Inmobiliario de LATAM
   </div>
 
-  <h1>El <em>copilot de Inversiones</em> para LATAM</h1>
+  <h1>La <em>inteligencia artificial</em> que vende tus propiedades.</h1>
 
   <p class="hero-sub">
-    Consultá leyes de inversión y tributación en segundos. Respuestas con fuentes reales, no respuestas genéricas de ChatGPT.
+    Conecta a tus clientes con su departamento ideal en segundos. Análisis de zona, cálculo de ROI y matching automático de inventario para agentes y desarrolladoras.
   </p>
 
   <div class="hero-actions">
@@ -614,63 +645,58 @@
 
   <div class="stats-bar">
     <div class="stat">
-      <div class="stat-num">10</div>
-      <div class="stat-label">Consultas gratis</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">~30s</div>
-      <div class="stat-label">Por respuesta</div>
-    </div>
-    <div class="stat">
       <div class="stat-num">100%</div>
-      <div class="stat-label">Fuentes citadas</div>
+      <div class="stat-label">Inventario vectorizado</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">~3s</div>
+      <div class="stat-label">Por match de cliente</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Asesoramiento activo</div>
     </div>
   </div>
 </section>
 
-<!-- VIDEO -->
 <section id="demo-video" style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
   <div class="container reveal">
     <p class="section-tag">Demo</p>
-    <h2 class="section-title">Mirá cómo funciona en 90 segundos</h2>
-    <p class="section-sub">Una pregunta real, una respuesta real citando la ley exacta.</p>
+    <h2 class="section-title">Mirá cómo la IA cierra una venta en 90s</h2>
+    <p class="section-sub">Una consulta de cliente, cruce de datos del barrio y opciones personalizadas al instante.</p>
 
     <div class="video-wrap">
-      <!-- REEMPLAZÁ CON TU URL DE VEED: -->
-      <!-- <iframe src="https://www.veed.io/embed/TU-VIDEO-ID" allowfullscreen></iframe> -->
-
       <div class="video-placeholder">
         <div class="play-btn">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </div>
-        <p>Demo de InvestPy — pegá tu URL de Veed aquí</p>
+        <p>Demo de InvestPy Real Estate — pegá tu URL de Veed aquí</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section id="como-funciona">
   <div class="container reveal">
     <p class="section-tag">Cómo funciona</p>
-    <h2 class="section-title">Simple como hacer una pregunta</h2>
-    <p class="section-sub">Sin formularios, sin esperar días. Solo preguntá y recibís la respuesta con la ley exacta.</p>
+    <h2 class="section-title">De la captación al cierre automático</h2>
+    <p class="section-sub">Transforma tu inventario estático en un motor de ventas inteligente impulsado por IA.</p>
 
     <div class="steps">
       <div class="step">
         <p class="step-num">PASO 01</p>
-        <h3>Hacé tu consulta</h3>
-        <p>Preguntá lo que necesitás sobre leyes de inversión, tributación o regulaciones en Paraguay.</p>
+        <h3>Cargá tu inventario</h3>
+        <p>Subí tus propiedades manualmente o vía Excel. La IA lee fotos, precios y descripciones para convertirlos en vectores matemáticos.</p>
       </div>
       <div class="step">
         <p class="step-num">PASO 02</p>
-        <h3>Buscamos en leyes reales</h3>
-        <p>InvestPy busca en documentos oficiales: SET, MIC, Banco Central del Paraguay.</p>
+        <h3>El cliente pregunta</h3>
+        <p>"Busco un departamento para inversión cerca de colegios top en Villa Morra, mi presupuesto es de USD 100k".</p>
       </div>
       <div class="step">
         <p class="step-num">PASO 03</p>
-        <h3>Respuesta con fuente</h3>
-        <p>"Según la Ley 60/90, Art. 26..." — no respuestas vagas, siempre con el artículo exacto.</p>
+        <h3>La IA hace Match</h3>
+        <p>InvestPy analiza colegios, ROI y tu base de datos para responder con tarjetas visuales, argumentos de venta y mapas.</p>
       </div>
     </div>
   </div>
@@ -678,43 +704,42 @@
 
 <hr class="divider">
 
-<!-- FEATURES -->
 <section>
   <div class="container reveal">
     <p class="section-tag">Por qué InvestPy</p>
-    <h2 class="section-title">Lo que ningún chatbot genérico puede darte</h2>
-    <p class="section-sub">ChatGPT sabe de todo pero no sabe nada de Paraguay. InvestPy sí.</p>
+    <h2 class="section-title">Más que un chatbot, tu mejor broker.</h2>
+    <p class="section-sub">ChatGPT no conoce tus departamentos ni los barrios de Asunción. InvestPy sí.</p>
 
     <div class="features-grid">
       <div class="feature">
-        <span class="feature-icon">⚖️</span>
-        <h3>Leyes reales de Paraguay</h3>
-        <p>Accedemos a documentos oficiales de la SET, MIC y Banco Central. No inventamos nada.</p>
+        <span class="feature-icon">🏢</span>
+        <h3>Inventario Inteligente</h3>
+        <p>Solo recomienda tus propiedades. Sube tu base de datos y la IA la usará exclusivamente para cerrar tus ventas.</p>
       </div>
       <div class="feature">
-        <span class="feature-icon">🔗</span>
-        <h3>Fuentes siempre citadas</h3>
-        <p>Cada respuesta incluye ley y artículo exacto. Podés verificarlo y mostrárselo a tu contador.</p>
+        <span class="feature-icon">🗺️</span>
+        <h3>Contexto Urbano</h3>
+        <p>Sabe dónde están los colegios, el eje corporativo y los shoppings. Usa el entorno para justificar el precio.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">💰</span>
+        <h3>Análisis de Inversión</h3>
+        <p>Calcula y expone el ROI (Rentabilidad) y la plusvalía estimada de la zona para convencer a los inversores.</p>
       </div>
       <div class="feature">
         <span class="feature-icon">⚡</span>
-        <h3>Respuesta en segundos</h3>
-        <p>Lo que antes tardaba horas de búsqueda o una consulta cara, ahora en 30 segundos.</p>
+        <h3>Cierre Visual Rápido</h3>
+        <p>No entrega textos aburridos. Genera tarjetas de propiedades con fotos de alta calidad y botones de Google Maps.</p>
       </div>
       <div class="feature">
-        <span class="feature-icon">🌎</span>
-        <h3>Contexto local LATAM</h3>
-        <p>Construido específicamente para el mercado paraguayo y en expansión a toda la región.</p>
+        <span class="feature-icon">💬</span>
+        <h3>Estilo Conversacional</h3>
+        <p>Entrenado para hablar como un asesor experto de LATAM: directo, cálido, moderno y persuasivo (estilo WhatsApp).</p>
       </div>
       <div class="feature">
-        <span class="feature-icon">📋</span>
-        <h3>Historial de consultas</h3>
-        <p>Todas tus preguntas guardadas. Encontrá una consulta anterior cuando la necesites.</p>
-      </div>
-      <div class="feature">
-        <span class="feature-icon">🔒</span>
-        <h3>Privado y seguro</h3>
-        <p>Sin publicidad, sin venta de datos. Tus consultas son completamente tuyas.</p>
+        <span class="feature-icon">📊</span>
+        <h3>Dashboard Dinámico</h3>
+        <p>Muestra estadísticas en tiempo real del barrio que el cliente está consultando (precio por m2, densidad familiar).</p>
       </div>
     </div>
   </div>
@@ -722,60 +747,60 @@
 
 <hr class="divider">
 
-<!-- CHAT DEMO -->
 <section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
   <div class="container-sm reveal">
     <p class="section-tag">Ejemplo real</p>
-    <h2 class="section-title">Así se ve una consulta</h2>
-    <p class="section-sub">Una pregunta de un emprendedor paraguayo, respondida con fuente exacta.</p>
+    <h2 class="section-title">Así vende InvestPy</h2>
+    <p class="section-sub">Un cliente buscando inversión cruza datos con tu inventario real.</p>
 
     <div class="chat-demo">
       <div class="chat-bar">
         <div class="dot" style="background:#ff5f57"></div>
         <div class="dot" style="background:#febc2e"></div>
         <div class="dot" style="background:#28c840"></div>
-        <span style="margin-left:0.5rem;font-size:0.78rem;color:var(--text-light)">InvestPy · Paraguay</span>
+        <span style="margin-left:0.5rem;font-size:0.78rem;color:var(--text-light)">InvestPy AI · Broker Agent</span>
       </div>
       <div class="chat-body">
         <div class="msg msg-user">
-          ¿Qué beneficios fiscales tengo si registro mi empresa bajo la Ley 60/90?
+          Hola, busco un monoambiente para inversión cerca del eje corporativo en Asunción. Quiero algo que me dé buen ROI rápido.
         </div>
         <div class="msg msg-ai">
-          <strong>Según la Ley 60/90 de Inversiones:</strong><br><br>
-          Las empresas registradas acceden a exoneración del Impuesto a la Renta (IRE) por hasta <strong>10 años</strong>, exoneración de impuestos de importación para bienes de capital, y estabilidad tributaria garantizada.<br><br>
-          Para calificar, la inversión mínima debe ser de <strong>USD 5.000.000</strong> en sectores como industria, agroindustria o turismo.<br><br>
-          <div class="source-tag">📄 Fuente: Ley 60/90, Arts. 3, 8 y 14 — MIC Paraguay</div>
+          <strong>¡Excelente perfil inversor!</strong> Ycuá Satí es la zona ideal para vos. Tenés altísima demanda ejecutiva por la cercanía al WTC y Paseo La Galería, lo que asegura liquidez. <br><br>
+          En tu inventario tengo esta opción perfecta:
+          
+          <div class="property-demo-card">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&q=80" alt="Departamento" class="property-demo-img">
+            <div class="property-demo-info">
+              <h4>Premium Monoambiente Ycuá Satí</h4>
+              <p>📍 A 2 cuadras del Shopping del Sol</p>
+              <div style="font-weight:700; color:#111;">USD 72.000 <span style="color:#137333; margin-left:10px; font-size:0.8rem; background:#e6f4ea; padding:2px 6px; border-radius:4px;">9.2% ROI Estimado</span></div>
+            </div>
+          </div>
+          <br>
+          ¿Te gustaría que te pase las opciones de financiamiento o agendamos una visita?
+          
+          <div style="display:block; margin-top:5px;">
+             <div class="source-tag">📍 Ver ubicación en Maps</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING COMENTADO - descomentar cuando esté listo
-<section>
-  <div class="container reveal" style="text-align:center">
-    <p class="section-tag">Planes</p>
-    <h2 class="section-title">Empezá gratis, escalá cuando necesites</h2>
-    ...pricing cards...
-  </div>
-</section>
--->
-
-<!-- CTA -->
 <section class="cta-section">
   <div class="reveal">
-    <h2>¿Cuánto te cuesta no saber la ley?</h2>
-    <p>Una multa de la SET, un contrato mal estructurado, beneficios que te corresponden y no aprovechaste. Empezá gratis hoy.</p>
-    <a href="https://app.investpy.lat" class="btn-white">Crear cuenta gratis →</a>
+    <h2>¿Sigues perdiendo clientes por no responder a tiempo?</h2>
+    <p>Transformá tu inventario en una máquina de ventas 24/7. Sube tus primeras propiedades y deja que la IA haga el match.</p>
+    <a href="https://app.investpy.lat" class="btn-white">Cargar mi Inventario →</a>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p>© 2026 InvestPy. Copilot de Inversiones para LATAM.</p>
+  <p>© 2026 InvestPy PropTech. El Copilot Inmobiliario para LATAM.</p>
   <div class="footer-links">
-    <a href="https://app.investpy.lat">App</a>
-    <a href="mailto:hola@investpy.lat">Contacto</a>
+    <a href="https://app.investpy.lat">Acceder a la App</a>
+    <a href="mailto:hola@investpy.lat">Contacto para Agencias</a>
   </div>
 </footer>
 
